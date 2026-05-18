@@ -1,0 +1,25 @@
+/* Basic responsive UI */
+*{box-sizing:border-box}
+body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:#f5f7fb;color:#1f2937}
+header{background:#1e293b;color:#fff;padding:14px 20px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+header a{color:#fff;text-decoration:none;margin-right:14px}
+header .brand{font-weight:700;font-size:18px;margin-right:auto}
+main{max-width:1000px;margin:24px auto;padding:0 16px}
+.card{background:#fff;border-radius:10px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:18px}
+h1,h2,h3{margin-top:0}
+input,textarea,select,button{font:inherit;padding:9px 11px;border:1px solid #cbd5e1;border-radius:6px;width:100%;max-width:380px}
+button{background:#2563eb;color:#fff;border:0;cursor:pointer;width:auto}
+button:hover{background:#1d4ed8}
+button.danger{background:#dc2626}button.danger:hover{background:#b91c1c}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:9px 10px;border-bottom:1px solid #e5e7eb;text-align:left}
+th{background:#f1f5f9}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.product{background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.muted{color:#64748b;font-size:.9em}
+.err{color:#b91c1c;font-size:.9em}
+.ok{color:#15803d;font-size:.9em}
+.review{border:1px solid #e5e7eb;border-radius:8px;padding:10px;margin:8px 0;background:#fafafa}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+form p{margin:8px 0}
+@media(max-width:600px){header{flex-direction:column;align-items:flex-start}}
