@@ -28,7 +28,11 @@ function loadBrands(categoryId) {
 
     xhr.open(
         "GET",
+<<<<<<< HEAD
         "/Task1/controllers/AdminProductController.php?action=getBrands&category_id=" + categoryId,
+=======
+        "/Task2/controllers/AdminProductController.php?action=getBrands&category_id=" + categoryId,
+>>>>>>> origin/feature/task2-23-55250-3
         true
     );
 
