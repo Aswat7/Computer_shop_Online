@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- views/layout/footer.php -->
 <!-- Footer included at the bottom of every public page -->
 
@@ -5,5 +6,11 @@
     <p>© <?php echo date('Y'); ?> Computer Shop — Online PC Components Store</p>
 </footer>
 
+=======
+</main>
+<footer style="text-align:center;color:#94a3b8;padding:24px;font-size:.85em">
+&copy; <?= date('Y') ?> ShopLite — MVC demo project
+</footer>
+>>>>>>> origin/feature/task4-22-49881-3
 </body>
 </html>

@@ -1,33 +1,11 @@
-<?php
-<<<<<<< HEAD
-// setup_db.php  (FIXED VERSION)
-=======
-// setup_db.php — Run this once to create the database and all tables.
->>>>>>> origin/feature/task4-22-49881-3
-$servername = "localhost";
-$username   = "root";
-$password   = "";
+-- schema.sql — Database setup for computer_shop
+-- Run this file (or use setup_db.php) to initialise the database.
 
-$conn = mysqli_connect($servername, $username, $password);
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-echo "1. Connected to MySQL successfully.<br>";
+CREATE DATABASE IF NOT EXISTS computer_shop CHARACTER SET utf8mb4;
+USE computer_shop;
 
-$sql_db = "CREATE DATABASE IF NOT EXISTS computer_shop";
-if ($conn->query($sql_db) === TRUE) {
-    echo "2. Database 'computer_shop' is ready.<br>";
-}
-
-mysqli_select_db($conn, "computer_shop");
-echo "3. Database selected. Creating tables...<br><br>";
-
-<<<<<<< HEAD
-// Users  (removed the trailing comma that caused a syntax error)
-=======
-// Users
->>>>>>> origin/feature/task4-22-49881-3
-$u = "CREATE TABLE IF NOT EXISTS users (
+-- Users
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -36,52 +14,37 @@ $u = "CREATE TABLE IF NOT EXISTS users (
     profile_picture VARCHAR(255) DEFAULT NULL,
     remember_token VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)";
-if ($conn->query($u)) echo "✅ Users table created.<br>";
-else echo "❌ Users: " . $conn->error . "<br>";
+);
 
-<<<<<<< HEAD
-=======
-// Remember-me tokens
-$rt = "CREATE TABLE IF NOT EXISTS remember_tokens (
+-- Remember-me tokens (used by the "Remember me" login feature)
+CREATE TABLE IF NOT EXISTS remember_tokens (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     token_hash VARCHAR(255) NOT NULL,
     expires_at DATETIME NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-)";
-if ($conn->query($rt)) echo "✅ Remember Tokens table created.<br>";
-else echo "❌ Remember Tokens: " . $conn->error . "<br>";
+);
 
->>>>>>> origin/feature/task4-22-49881-3
-// Categories
-$c = "CREATE TABLE IF NOT EXISTS categories (
+-- Categories
+CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     parent_id INT DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (parent_id) REFERENCES categories(id) ON DELETE RESTRICT
-)";
-if ($conn->query($c)) echo "✅ Categories table created.<br>";
-else echo "❌ Categories: " . $conn->error . "<br>";
+);
 
-// Brands
-$b = "CREATE TABLE IF NOT EXISTS brands (
+-- Brands
+CREATE TABLE IF NOT EXISTS brands (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     category_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE RESTRICT
-)";
-if ($conn->query($b)) echo "✅ Brands table created.<br>";
-else echo "❌ Brands: " . $conn->error . "<br>";
+);
 
-<<<<<<< HEAD
-// Products  (added manufacturer_review column as required by the project)
-=======
-// Products
->>>>>>> origin/feature/task4-22-49881-3
-$p = "CREATE TABLE IF NOT EXISTS products (
+-- Products
+CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
@@ -94,29 +57,22 @@ $p = "CREATE TABLE IF NOT EXISTS products (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE RESTRICT,
     FOREIGN KEY (brand_id) REFERENCES brands(id) ON DELETE RESTRICT
-)";
-if ($conn->query($p)) echo "✅ Products table created.<br>";
-else echo "❌ Products: " . $conn->error . "<br>";
+);
 
-// Cart
-$ct = "CREATE TABLE IF NOT EXISTS cart (
+-- Cart (named 'cart' to match application code)
+CREATE TABLE IF NOT EXISTS cart (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     product_id INT NOT NULL,
     quantity INT NOT NULL DEFAULT 1,
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-<<<<<<< HEAD
-=======
     UNIQUE KEY uniq_user_product (user_id, product_id),
->>>>>>> origin/feature/task4-22-49881-3
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
-)";
-if ($conn->query($ct)) echo "✅ Cart table created.<br>";
-else echo "❌ Cart: " . $conn->error . "<br>";
+);
 
-// Orders
-$o = "CREATE TABLE IF NOT EXISTS orders (
+-- Orders
+CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     total_amount DECIMAL(10, 2) NOT NULL,
@@ -124,12 +80,10 @@ $o = "CREATE TABLE IF NOT EXISTS orders (
     status VARCHAR(50) NOT NULL DEFAULT 'pending',
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-)";
-if ($conn->query($o)) echo "✅ Orders table created.<br>";
-else echo "❌ Orders: " . $conn->error . "<br>";
+);
 
-// Order Items
-$oi = "CREATE TABLE IF NOT EXISTS order_items (
+-- Order Items
+CREATE TABLE IF NOT EXISTS order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
     product_id INT NOT NULL,
@@ -137,12 +91,10 @@ $oi = "CREATE TABLE IF NOT EXISTS order_items (
     unit_price DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
-)";
-if ($conn->query($oi)) echo "✅ Order Items table created.<br>";
-else echo "❌ Order Items: " . $conn->error . "<br>";
+);
 
-// Reviews
-$r = "CREATE TABLE IF NOT EXISTS reviews (
+-- Reviews
+CREATE TABLE IF NOT EXISTS reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -151,10 +103,21 @@ $r = "CREATE TABLE IF NOT EXISTS reviews (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-)";
-if ($conn->query($r)) echo "✅ Reviews table created.<br>";
-else echo "❌ Reviews: " . $conn->error . "<br>";
+);
 
-echo "<h3>🎉 FRESH START COMPLETE! Database 'computer_shop' is ready.</h3>";
-$conn->close();
-?>
+-- Demo data (requires categories and brands to exist first)
+-- Insert a demo category and brand so sample products can be added
+INSERT IGNORE INTO categories (id, name) VALUES (1, 'Computer Peripherals');
+INSERT IGNORE INTO brands (id, name, category_id) VALUES (1, 'Generic', 1);
+
+INSERT IGNORE INTO users (name, email, password_hash, role) VALUES
+('Admin', 'admin@shop.test',
+ '$2y$10$e0Mwz7p8u3qjk2QwGdGCa.WuoQ8kS3xQ1QVqv5T7n6q3uA7gO9C6S', 'admin'),
+('Alice', 'alice@shop.test',
+ '$2y$10$e0Mwz7p8u3qjk2QwGdGCa.WuoQ8kS3xQ1QVqv5T7n6q3uA7gO9C6S', 'customer');
+-- Password for both demo users: Passw0rd!
+
+INSERT IGNORE INTO products (name, description, price, category_id, brand_id, stock) VALUES
+('Wireless Mouse',    'Ergonomic 2.4GHz wireless mouse', 799.00,  1, 1, 25),
+('Mechanical Keyboard','RGB blue switches, 87 keys',     3499.00, 1, 1, 10),
+('USB-C Hub',         '7-in-1 aluminum hub',             1599.00, 1, 1, 15);
