@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
 $host = "localhost";
 $user = "root";
@@ -10,3 +11,16 @@ $conn = mysqli_connect($host, $user, $pass, $db);
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
 }
+=======
+$servername = "localhost";
+$username   = "root";
+$password   = "";
+$dbname     = "computer_shop";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+?>
+>>>>>>> origin/feature/task3-22-46877-1
